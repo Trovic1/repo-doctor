@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { BASE_URL } from "./lib/otari.js";
 import { handleConfig, handleMe, handleDiagnose, sendJson } from "./lib/routes.js";
+import { handleGuardValidate, handleGuardProfiles } from "./lib/guard.js";
 
 const root = dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 3000);
@@ -20,6 +21,8 @@ const server = createServer(async (req, res) => {
     if (req.method === "GET" && pathname === "/api/config") return handleConfig(req, res);
     if (req.method === "GET" && pathname === "/api/me") return await handleMe(req, res);
     if (pathname === "/api/diagnose") return await handleDiagnose(req, res);
+    if (pathname === "/api/guard/validate") return await handleGuardValidate(req, res);
+    if (pathname === "/api/guard/profiles") return handleGuardProfiles(req, res);
     res.writeHead(404).end("Not found");
   } catch (e) {
     console.error(e);
