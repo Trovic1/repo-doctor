@@ -1,0 +1,12 @@
+{
+  "name": "repo-doctor",
+  "version": "0.1.0",
+  "description": "Paste a GitHub repo, get a health check: open-weight AI agents read the code, run its tests in a sandbox and report bugs.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.js"
+  },
+  "engines": { "node": ">=22" },
+  "license": "MIT"
+}
