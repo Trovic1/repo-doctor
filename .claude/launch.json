@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "doctor",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["--env-file-if-exists=C:/Users/BUY-PC COMPUTERS/code/repo-doctor/.env", "C:/Users/BUY-PC COMPUTERS/code/repo-doctor/server.js"],
+      "port": 3000
+    }
+  ]
+}
