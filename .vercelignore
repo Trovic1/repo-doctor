@@ -1,0 +1,7 @@
+.env
+.env.*
+!.env.example
+.claude
+hackathon-scout
+SUBMISSION.md
+server.js
