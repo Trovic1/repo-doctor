@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { runDoctor, ROLES } from "./lib/doctor.js";
-import { getEndUser, OtariError, BASE_URL } from "./lib/otari.js";
+import { getEndUser, ensureEndUser, OtariError, BASE_URL } from "./lib/otari.js";
 
 const root = dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 3000);
@@ -77,6 +77,12 @@ const server = createServer(async (req, res) => {
       res.writeHead(200, { "Content-Type": "application/x-ndjson", "Cache-Control": "no-cache" });
       const emit = (event) => res.write(JSON.stringify(event) + "\n");
       try {
+        try {
+          const eu = await ensureEndUser(user);
+          if (eu) emit({ type: "spend", endUser: eu });
+        } catch (e) {
+          emit({ type: "warn", message: `Couldn't set up your budget: ${e.message}` });
+        }
         await runDoctor({ repoUrl: body.repo, focus: body.focus }, user, emit);
       } catch (e) {
         console.error(e);
